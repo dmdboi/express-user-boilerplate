@@ -1,8 +1,10 @@
 # express-user-boilerplate
-Yet another Express Boilerplate. 
+
+Yet another Express Boilerplate.
 This aims to be as simple as possible to get off the ground with User authentication, Admin dashboard and protected routes.
 
 ### Features
+
 - User Login/Register with Passport Local Strategy
 - Admin Dashboard
 - Flash Messages
@@ -12,7 +14,15 @@ This aims to be as simple as possible to get off the ground with User authentica
 - Protected Routes w/ Middleware
 
 ### Future Additions
+
 - About Page
 
-### Next update
-- Admin middleware
+### Extras
+To automatically compile SCSS files. Run ```npm run sass```
+
+Example ```.env``` file.
+
+```
+    PORT=3000
+    DB_NAME="DB_NAME"
+```

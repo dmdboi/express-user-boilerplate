@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "sass": "nodemon -e scss -x \"npm run compile\"",
+    "compile": "node-sass --include-path sass ./public/stylesheets/main.scss ./public/stylesheets/main.css"
   },
   "dependencies": {
     "app-root-path": "^3.0.0",
