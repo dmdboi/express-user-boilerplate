@@ -13,3 +13,6 @@ This aims to be as simple as possible to get off the ground with User authentica
 
 ### Future Additions
 - About Page
+
+### Next update
+- Admin middleware
