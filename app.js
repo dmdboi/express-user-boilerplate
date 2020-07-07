@@ -13,15 +13,17 @@ const passport = require("passport")
 
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
+const usersRouter = require('./routes/users');
+const adminRouter = require('./routes/admin');
 
 require('dotenv').config()
 require("./config/passport")
-require("./config/database");
+require("./config/mongoose");
 
 var app = express();
 
 var store = new MongoDBStore({
-  uri: 'mongodb://localhost:27017/blog',
+  uri: `mongodb://localhost:27017/${process.env.DB_NAME}`,
   collection: 'sessions'
 });
 
@@ -46,15 +48,19 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash())
 
 app.use(function(req, res, next) {
   res.locals.login = req.isAuthenticated();
   res.locals.session = req.session;
+  res.locals.messages = req.flash()
   next();
 });
 
 app.use('/', indexRouter);
 app.use('/auth/', authRouter);
+app.use('/users/', usersRouter);
+app.use('/admin/', adminRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -66,6 +72,7 @@ app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
+  
 
   // add this line to include winston logging
   winston.error(`${err.status || 500} - ${err.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`);

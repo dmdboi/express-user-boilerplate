@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="jumbotron my-5">
+        <h2 class="mb-5">Hello, {{session.passport.user.username}}</h2>
+        <h4>This is an example of an admin dashboard.</h4>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Username</th>
+                <th scope="col">Email</th>
+                <th scope="col"><i class="fa fa-cogs" aria-hidden="true"></i></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each users}}
+            <tr>
+                <th scope="row">{{@index}}</th>
+                <td>{{this.username}}</td>
+                <td>{{this.email}}</td>
+                <td><a href="/admin/dashboard/users/delete/{{this._id}}"><i class="fas fa-trash-alt"></i></a></td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>

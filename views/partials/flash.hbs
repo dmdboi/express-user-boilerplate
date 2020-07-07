@@ -1,0 +1,19 @@
+{{#if messages}}
+    {{#each messages.error}}
+        <div class="alert alert-danger font-weight-bold text-center mx-auto w-50  alert-dismissible fade show" role="alert">
+            {{this}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    {{/each}}
+
+    {{#each messages.success}}
+        <div class="alert alert-success font-weight-bold text-center mx-auto w-50 alert-dismissible fade show" role="alert">
+            {{this}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    {{/each}}
+{{/if}}
