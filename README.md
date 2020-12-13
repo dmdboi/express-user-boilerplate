@@ -1,6 +1,5 @@
-# express-user-boilerplate
+Express User Auth Boilerplate
 
-Yet another Express Boilerplate.
 This aims to be as simple as possible to get off the ground with User authentication, Admin dashboard and protected routes.
 
 ### Features
