@@ -1,4 +1,4 @@
-Express User Auth Boilerplate
+# Express User Auth Boilerplate
 
 This aims to be as simple as possible to get off the ground with User authentication, Admin dashboard and protected routes.
 
