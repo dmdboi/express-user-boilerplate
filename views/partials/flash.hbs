@@ -1,15 +1,27 @@
-{{#if messages}}
-    {{#each messages.error}}
-        <div class="alert alert-danger fw-bold text-center mx-auto w-50 alert-dismissible fade show" role="alert">
-            {{this}}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+{{#if messages.error}}
+    <div class="mb-6 space-y-3">
+        {{#each messages.error}}
+        <div data-alert
+            class="flex items-start justify-between gap-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 font-semibold text-red-800"
+            role="alert">
+            <span>{{this}}</span>
+            <button type="button" data-dismiss-alert aria-label="Close"
+                class="text-xl font-normal leading-none text-red-500 transition hover:text-red-700">&times;</button>
         </div>
-    {{/each}}
+        {{/each}}
+    </div>
+{{/if}}
 
-    {{#each messages.success}}
-        <div class="alert alert-success fw-bold text-center mx-auto w-50 alert-dismissible fade show" role="alert">
-            {{this}}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+{{#if messages.success}}
+    <div class="mb-6 space-y-3">
+        {{#each messages.success}}
+        <div data-alert
+            class="flex items-start justify-between gap-4 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 font-semibold text-emerald-800"
+            role="alert">
+            <span>{{this}}</span>
+            <button type="button" data-dismiss-alert aria-label="Close"
+                class="text-xl font-normal leading-none text-emerald-500 transition hover:text-emerald-700">&times;</button>
         </div>
-    {{/each}}
+        {{/each}}
+    </div>
 {{/if}}

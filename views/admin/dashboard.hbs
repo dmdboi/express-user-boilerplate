@@ -1,27 +1,33 @@
-<div class="container">
-    <div class="p-5 my-5 bg-light rounded-3">
-        <h2 class="mb-5">Hello, {{user.username}}</h2>
-        <h4>This is an example of an admin dashboard.</h4>
-    </div>
+<div class="space-y-6">
+    <section class="card">
+        <h2 class="text-2xl font-bold tracking-tight text-slate-900">Hello, {{user.username}}</h2>
+        <p class="mt-3 text-slate-600">This is an example of an admin dashboard.</p>
+    </section>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Username</th>
-                <th scope="col">Email</th>
-                <th scope="col"><i class="fa fa-cogs" aria-hidden="true"></i></th>
-            </tr>
-        </thead>
-        <tbody>
-            {{#each users}}
-            <tr>
-                <th scope="row">{{@index}}</th>
-                <td>{{this.username}}</td>
-                <td>{{this.email}}</td>
-                <td><a href="/admin/dashboard/users/delete/{{this._id}}"><i class="fas fa-trash-alt"></i></a></td>
-            </tr>
-            {{/each}}
-        </tbody>
-    </table>
+    <section class="overflow-x-auto rounded-2xl bg-white shadow-sm ring-1 ring-slate-200">
+        <table class="min-w-full divide-y divide-slate-200 text-left text-sm">
+            <thead class="bg-slate-50 text-xs font-semibold uppercase tracking-wide text-slate-500">
+                <tr>
+                    <th scope="col" class="px-4 py-3">#</th>
+                    <th scope="col" class="px-4 py-3">Username</th>
+                    <th scope="col" class="px-4 py-3">Email</th>
+                    <th scope="col" class="px-4 py-3 text-right"><i class="fa fa-cogs" aria-hidden="true"></i></th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200">
+                {{#each users}}
+                <tr class="transition hover:bg-slate-50">
+                    <th scope="row" class="px-4 py-3 font-medium text-slate-500">{{@index}}</th>
+                    <td class="px-4 py-3 text-slate-700">{{this.username}}</td>
+                    <td class="px-4 py-3 text-slate-700">{{this.email}}</td>
+                    <td class="px-4 py-3 text-right">
+                        <a href="/admin/dashboard/users/delete/{{this._id}}"
+                            class="text-red-600 transition hover:text-red-500"
+                            aria-label="Delete {{this.username}}"><i class="fas fa-trash-alt" aria-hidden="true"></i></a>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </section>
 </div>

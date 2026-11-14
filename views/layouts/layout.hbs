@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
     <meta charset="UTF-8">
-    <title>Express</title>
+    <title>{{#if title}}{{title}}{{else}}Express{{/if}}</title>
 
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
@@ -15,15 +15,38 @@
     <script defer src="https://use.fontawesome.com/releases/v5.1.1/js/all.js" integrity="sha384-BtvRZcyfv4r0x/phJt9Y9HhnN5ur1Z+kZbKVgzVBAlQZX4jvAuImlIz+bG7TS00a" crossorigin="anonymous"></script>
     </head>
 
-    <body>
+    <body class="min-h-screen bg-slate-50 text-slate-800 antialiased">
         {{> navigation}}
-        <div class="container my-3">
+        <main class="mx-auto w-full max-w-5xl px-4 py-6">
             {{> flash}}
-        </div>
-        {{{body}}}
+            {{{body}}}
+        </main>
 
+        <script>
+            const navToggle = document.getElementById('nav-toggle');
+            const navMenu = document.getElementById('nav-menu');
+
+            if (navToggle && navMenu) {
+                navToggle.addEventListener('click', () => {
+                    const isOpen = navToggle.getAttribute('aria-expanded') === 'true';
+                    navToggle.setAttribute('aria-expanded', String(!isOpen));
+                    navMenu.classList.toggle('hidden');
+                });
+            }
+
+            document.querySelectorAll('[data-dismiss-alert]').forEach((button) => {
+                button.addEventListener('click', () => {
+                    button.closest('[data-alert]')?.remove();
+                });
+            });
+
+            document.addEventListener('click', (event) => {
+                document.querySelectorAll('details[open]').forEach((details) => {
+                    if (!details.contains(event.target)) {
+                        details.removeAttribute('open');
+                    }
+                });
+            });
+        </script>
     </body>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/js/bootstrap.bundle.min.js" integrity="sha384-WyOxWvTyr1QaMPfiPJSv76iReVthorl5uWlFtZPyK0IEB0hGzo9y5Bp9mYanr8Bu" crossorigin="anonymous"></script>
-    
 </html>
