@@ -8,15 +8,15 @@ passport.use(
         usernameField: "email",
         passwordField: "password",
         passReqToCallback: true
-    }, async function(req, username, password, done) {
+    }, function(req, username, password, done) {
         try {
-            const user = await User.findOne({ email: username })
+            const user = User.findByEmail(username)
 
             if (!user) {
                 req.flash('error', 'That user does not exist');
                 return done(null, false)
             }
-            if (!user.validPassword(password)) {
+            if (!User.validPassword(user, password)) {
                 req.flash('error', 'Wrong password');
                 return done(null, false)
             }
@@ -34,10 +34,9 @@ passport.serializeUser(function(user, done) {
     done(null, user.id)
 })
 
-passport.deserializeUser(async function(id, done) {
+passport.deserializeUser(function(id, done) {
     try {
-        const user = await User.findById(id)
-        done(null, user)
+        done(null, User.findById(id))
     } catch (err) {
         done(err)
     }
@@ -51,20 +50,17 @@ passport.use(
         passwordField: "password",
         passReqToCallback: true
       },
-      async function(req, username, password, done) {
+      function(req, username, password, done) {
         try {
-          const user = await User.findOne({ email: username });
-
-          if (user) {
+          if (User.findByEmail(username)) {
             return done(null, false, { message: "Email is already in use." });
           }
 
-          var newUser = new User();
-          newUser.email = username;
-          newUser.username = req.body.name
-          newUser.password = newUser.encryptPassword(password);
-          newUser.created_At = Date.now()
-          await newUser.save();
+          const newUser = User.create({
+            username: req.body.name,
+            email: username,
+            password
+          });
 
           req.flash('success', 'Welcome!');
           return done(null, newUser);

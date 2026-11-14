@@ -1,11 +1,10 @@
 const Users = require("../models/User.model");
 
-exports.getDashboard = async (req, res) => {
-    let users = await Users.find({}).lean()
-    return res.render('admin/dashboard', { users })
+exports.getDashboard = (req, res) => {
+    return res.render('admin/dashboard', { users: Users.all() })
 }
 
-exports.postDeleteUser = async (req, res) => {
-    await Users.findOneAndDelete({_id: req.params.id}).lean()
+exports.postDeleteUser = (req, res) => {
+    Users.deleteById(req.params.id)
     return res.redirect('/admin/dashboard')
 }
