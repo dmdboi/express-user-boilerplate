@@ -2,13 +2,15 @@
 
 This aims to be as simple as possible to get off the ground with User authentication, Admin dashboard and protected routes.
 
+Requires Node.js 22.23.5 or newer.
+
 ### Features
 
 - User Login/Register with Passport Local Strategy
 - Admin Dashboard
 - Flash Messages
 - MongoDB Database
-- SCSS-support with Bootstrap 4.5
+- SCSS support with Bootstrap 5
 - Winston Logging
 - Protected Routes w/ Middleware
 

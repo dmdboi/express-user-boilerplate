@@ -28,7 +28,7 @@ var store = new MongoDBStore({
 });
 
 // view engine setup
-app.engine(".hbs", exphbs({ defaultLayout: "layout", extname: ".hbs" }));
+app.engine(".hbs", exphbs.engine({ defaultLayout: "layout", extname: ".hbs" }));
 app.set("view engine", ".hbs");
 
 app.use(morgan('combined', { stream: winston.stream }));
@@ -52,6 +52,7 @@ app.use(flash())
 
 app.use(function(req, res, next) {
   res.locals.login = req.isAuthenticated();
+  res.locals.user = req.user ? req.user.toObject() : null;
   res.locals.session = req.session;
   res.locals.messages = req.flash()
   next();
@@ -83,5 +84,5 @@ app.use(function(err, req, res, next) {
 });
 
 app.listen(process.env.PORT, function() {
-  console.log(`Web Server ==> http://localhost:${process.env.port}`)
+  console.log(`Web Server ==> http://localhost:${process.env.PORT}`)
 })

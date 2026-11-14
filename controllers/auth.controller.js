@@ -28,6 +28,10 @@ exports.postRegister = (req, res, next) => {
 }
 
 exports.getLogout = (req, res, next) => {
-    req.logOut();
-    return res.redirect("/");
+    req.logOut((err) => {
+        if (err) {
+            return next(err);
+        }
+        return res.redirect("/");
+    });
 }

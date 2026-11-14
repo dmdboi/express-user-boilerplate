@@ -6,37 +6,41 @@ passport.use(
     "local.signin",
     new LocalStrategy({
         usernameField: "email",
-        passportField: "password",
+        passwordField: "password",
         passReqToCallback: true
-    }, function(req, username, password, done) {
-        User.findOne({ email: username}, function(err, user) {
-            if (err) {
-                console.log(err)
-                return done(err);
-            }
+    }, async function(req, username, password, done) {
+        try {
+            const user = await User.findOne({ email: username })
+
             if (!user) {
-                console.log("No user found.")
                 req.flash('error', 'That user does not exist');
                 return done(null, false)
             }
             if (!user.validPassword(password)) {
-                console.log("invalid password")
                 req.flash('error', 'Wrong password');
                 return done(null, false)
             }
-            console.log("logged in")
+
             req.flash('success', 'Welcome back!');
             return done(null, user)
-        })
+        } catch (err) {
+            console.log(err)
+            return done(err);
+        }
     })
 )
 
 passport.serializeUser(function(user, done) {
-    done(null, user)
+    done(null, user.id)
 })
 
-passport.deserializeUser(function(user, done) {
-    done(null, user)
+passport.deserializeUser(async function(id, done) {
+    try {
+        const user = await User.findById(id)
+        done(null, user)
+    } catch (err) {
+        done(err)
+    }
 })
 
 passport.use(
@@ -47,30 +51,28 @@ passport.use(
         passwordField: "password",
         passReqToCallback: true
       },
-      function(req, username, password, done) {
-        User.findOne({ email: username }, function(err, user) {
-          if (err) {
-            return done(err);
-          }
+      async function(req, username, password, done) {
+        try {
+          const user = await User.findOne({ email: username });
+
           if (user) {
             return done(null, false, { message: "Email is already in use." });
           }
+
           var newUser = new User();
           newUser.email = username;
           newUser.username = req.body.name
           newUser.password = newUser.encryptPassword(password);
           newUser.created_At = Date.now()
-          newUser.save(function(err, result) {
-            if (err) {
-              console.log(err)
-              req.flash('danger', err);
-              return done(err);
-            }
-            console.log(result)
-            req.flash('success', 'Welcome!');
-            return done(null, newUser);
-          });
-        });
+          await newUser.save();
+
+          req.flash('success', 'Welcome!');
+          return done(null, newUser);
+        } catch (err) {
+          console.log(err)
+          req.flash('danger', err.message);
+          return done(err);
+        }
       }
     )
   );
