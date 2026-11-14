@@ -56,7 +56,7 @@ passport.use(
             return done(null, false, { message: "Email is already in use." });
           }
           var newUser = new User();
-          newUser.email = email;
+          newUser.email = username;
           newUser.username = req.body.name
           newUser.password = newUser.encryptPassword(password);
           newUser.created_At = Date.now()
