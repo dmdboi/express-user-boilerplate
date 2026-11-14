@@ -1,19 +1,20 @@
-var sass = require('node-sass');
+var sass = require('sass');
 var fs = require('fs').promises;
 
-function compileSass(options = {}) {
+async function compileSass(options = {}) {
     // set default options
     options = Object.assign({
         style: 'expanded'
     }, options);
 
     // render the result
-    var result = sass.renderSync({
-        file: options.src,
-        outputStyle: options.style
+    var result = sass.compile(options.src, {
+        style: options.style,
+        loadPaths: ['node_modules'],
+        sourceMap: false
     });
 
-    fs.writeFile(options.dest, result.css);
+    await fs.writeFile(options.dest, result.css);
 
     // log successful compilation to terminal
     return console.log(' ' + options.dest + ' built.');

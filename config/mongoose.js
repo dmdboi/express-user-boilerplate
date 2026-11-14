@@ -1,11 +1,7 @@
 const mongoose = require('mongoose');
 require('dotenv').config()
 
-mongoose.connect(`mongodb://localhost:27017/${process.env.DB_NAME}`, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true
-});
+mongoose.connect(`mongodb://localhost:27017/${process.env.DB_NAME}`);
 
 mongoose.connection.on('connected', function () {
     console.log("Mongoose default connection is open to", process.env.DB_NAME);

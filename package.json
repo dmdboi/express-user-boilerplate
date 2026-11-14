@@ -2,35 +2,36 @@
   "name": "express-boilerplate",
   "version": "0.0.0",
   "private": true,
+  "engines": {
+    "node": ">=22.23.5"
+  },
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
     "sass": "nodemon -e scss -x \"npm run compile\"",
-    "compile": "node-sass --include-path sass ./public/stylesheets/main.scss ./public/stylesheets/main.css"
+    "compile": "sass --load-path=node_modules --no-source-map --style=compressed ./public/stylesheets/main.scss ./public/stylesheets/main.min.css"
   },
   "dependencies": {
-    "app-root-path": "^3.0.0",
-    "bcrypt": "^5.0.0",
-    "bootstrap": "^4.5.0",
+    "app-root-path": "^3.1.0",
+    "bcrypt": "^6.0.0",
+    "bootstrap": "^5.3.9",
     "connect-flash": "^0.1.1",
-    "connect-mongodb-session": "^2.3.3",
-    "cookie-parser": "~1.4.4",
-    "debug": "~2.6.9",
-    "dotenv": "^8.2.0",
-    "express": "~4.16.1",
-    "express-handlebars": "^4.0.6",
-    "express-session": "^1.17.1",
-    "flash": "^1.1.0",
-    "hbs": "~4.0.4",
-    "http-errors": "~1.6.3",
-    "mongoose": "^5.9.21",
-    "morgan": "~1.9.1",
-    "node-sass": "^4.14.1",
-    "passport": "^0.4.1",
+    "connect-mongodb-session": "^5.0.0",
+    "cookie-parser": "^1.4.7",
+    "debug": "^4.4.3",
+    "dotenv": "^18.0.10",
+    "express": "^5.3.0",
+    "express-handlebars": "^9.0.6",
+    "express-session": "^1.19.0",
+    "http-errors": "^2.0.1",
+    "mongoose": "^9.12.1",
+    "morgan": "^1.12.1",
+    "passport": "^0.7.0",
     "passport-local": "^1.0.0",
-    "winston": "^3.3.3"
+    "sass": "^1.108.2",
+    "winston": "^3.19.0"
   },
   "devDependencies": {
-    "handlebars": "^4.5.0"
+    "nodemon": "^3.1.14"
   }
 }
