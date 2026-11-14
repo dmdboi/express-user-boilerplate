@@ -1,7 +1,7 @@
 const createError = require('http-errors');
 const express = require('express');
 const session = require("express-session")
-const MongoDBStore = require('connect-mongodb-session')(session);
+const SQLiteStore = require('./config/session-store');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
@@ -17,15 +17,12 @@ const usersRouter = require('./routes/users');
 const adminRouter = require('./routes/admin');
 
 require('dotenv').config()
+require("./config/database");
 require("./config/passport")
-require("./config/mongoose");
 
 var app = express();
 
-var store = new MongoDBStore({
-  uri: `mongodb://localhost:27017/${process.env.DB_NAME}`,
-  collection: 'sessions'
-});
+var store = new SQLiteStore({ ttl: 1000 * 60 * 60 * 24 * 2 });
 
 // view engine setup
 app.engine(".hbs", exphbs.engine({ defaultLayout: "layout", extname: ".hbs" }));
@@ -52,7 +49,7 @@ app.use(flash())
 
 app.use(function(req, res, next) {
   res.locals.login = req.isAuthenticated();
-  res.locals.user = req.user ? req.user.toObject() : null;
+  res.locals.user = req.user || null;
   res.locals.session = req.session;
   res.locals.messages = req.flash()
   next();

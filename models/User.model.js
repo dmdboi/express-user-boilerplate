@@ -1,21 +1,44 @@
-var mongoose = require("mongoose");
-var Schema = mongoose.Schema;
-var bcrypt = require("bcrypt");
+const bcrypt = require("bcrypt");
+const db = require("../config/database");
 
-var userSchema = new Schema({
-    username: { type: String, required: true, unique: true},
-    email: { type: String, required: true, unique: true},
-    password: { type: String, required: true},
-    created_At: { type: Date, required: true, default: Date.now },
-    isAdmin: { type: Boolean, default: false},
-})
+const publicColumns = "id, username, email, created_at, isAdmin";
 
-userSchema.methods.encryptPassword = function (password) {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null)
+function toUser(row) {
+    if (!row) {
+        return null;
+    }
+
+    return {
+        ...row,
+        isAdmin: Boolean(row.isAdmin)
+    };
 }
 
-userSchema.methods.validPassword = function (password) {
-    return bcrypt.compareSync(password, this.password)
+exports.findByEmail = (email) => {
+    return toUser(db.prepare("SELECT * FROM users WHERE email = ?").get(email));
 };
 
-module.exports = mongoose.model("User", userSchema);
+exports.findById = (id) => {
+    return toUser(db.prepare(`SELECT ${publicColumns} FROM users WHERE id = ?`).get(id));
+};
+
+exports.all = () => {
+    return db.prepare(`SELECT ${publicColumns} FROM users ORDER BY id`).all().map(toUser);
+};
+
+exports.deleteById = (id) => {
+    return db.prepare("DELETE FROM users WHERE id = ?").run(id).changes > 0;
+};
+
+exports.create = ({ username, email, password }) => {
+    const hash = bcrypt.hashSync(password, 10);
+    const result = db.prepare(
+        "INSERT INTO users (username, email, password) VALUES (?, ?, ?)"
+    ).run(username, email, hash);
+
+    return exports.findById(result.lastInsertRowid);
+};
+
+exports.validPassword = (user, password) => {
+    return bcrypt.compareSync(password, user.password);
+};
