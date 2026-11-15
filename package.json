@@ -8,13 +8,12 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "sass": "nodemon -e scss -x \"npm run compile\"",
-    "compile": "sass --load-path=node_modules --no-source-map --style=compressed ./public/stylesheets/main.scss ./public/stylesheets/main.min.css"
+    "css": "tailwindcss -i ./public/stylesheets/main.css -o ./public/stylesheets/main.min.css --watch",
+    "compile": "tailwindcss -i ./public/stylesheets/main.css -o ./public/stylesheets/main.min.css --minify"
   },
   "dependencies": {
     "app-root-path": "^3.1.0",
     "bcrypt": "^6.0.0",
-    "bootstrap": "^5.3.9",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.7",
     "debug": "^4.4.3",
@@ -26,10 +25,11 @@
     "morgan": "^1.12.1",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
-    "sass": "^1.108.2",
     "winston": "^3.19.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.14"
+    "@tailwindcss/cli": "^4.3.5",
+    "nodemon": "^3.1.14",
+    "tailwindcss": "^4.3.5"
   }
 }

@@ -10,7 +10,7 @@ Requires Node.js 24 or newer.
 - Admin Dashboard
 - Flash Messages
 - SQLite Database using the built-in `node:sqlite` module, with sessions stored in SQLite
-- SCSS support with Bootstrap 5
+- Tailwind CSS with automatic compiling
 - Winston Logging
 - Protected Routes w/ Middleware
 
@@ -19,7 +19,7 @@ Requires Node.js 24 or newer.
 - About Page
 
 ### Extras
-To automatically compile SCSS files. Run ```npm run sass```
+To automatically compile Tailwind CSS while you work. Run ```npm run css```
 
 Example ```.env``` file.
 

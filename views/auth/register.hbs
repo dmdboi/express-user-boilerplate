@@ -1,15 +1,30 @@
 <form class="form-signin" method="POST" action="/auth/register">
-    <img class="mb-4" src="https://getbootstrap.com//docs/4.5/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-    <h1 class="h3 mb-3 font-weight-normal">Please sign up</h1>
-        <label for="inputUsername" class="visually-hidden">Username</label>
-    <input type="text" id="inputUsername" class="form-control" placeholder="Username" required="" autofocus="" name="name"
-        autocomplete="off">
-    <label for="inputEmail" class="visually-hidden">Email address</label>
-    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" name="email"
-        autocomplete="off">
-    <label for="inputPassword" class="visually-hidden">Password</label>
-    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="" autocomplete="off" name="password">
+    <div class="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-600 text-xl text-white shadow-sm">
+        <i class="fas fa-bolt" aria-hidden="true"></i>
+    </div>
+    <h1 class="text-center text-2xl font-bold tracking-tight text-slate-900">Please sign up</h1>
+    <p class="mt-2 text-center text-sm text-slate-500">Create an account to get started.</p>
 
-    <button class="btn btn-lg btn-primary w-100" type="submit">Sign in</button>
-    <p class="mt-5 mb-3 text-muted">© 2017-2020</p>
+    <div class="mt-6 space-y-4">
+        <div>
+            <label for="inputUsername" class="form-label">Username</label>
+            <input type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus
+                name="name" autocomplete="off">
+        </div>
+
+        <div>
+            <label for="inputEmail" class="form-label">Email address</label>
+            <input type="email" id="inputEmail" class="form-control" placeholder="you@example.com" required
+                name="email" autocomplete="off">
+        </div>
+
+        <div>
+            <label for="inputPassword" class="form-label">Password</label>
+            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required
+                autocomplete="off" name="password">
+        </div>
+    </div>
+
+    <button class="btn-primary mt-6" type="submit">Create account</button>
+    <p class="mt-6 text-center text-xs text-slate-400">&copy; 2017-2020</p>
 </form>
